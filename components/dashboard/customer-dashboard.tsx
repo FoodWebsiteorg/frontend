@@ -71,11 +71,7 @@ export default function CustomerDashboard() {
     { icon: User, label: "My Profile", href: "/dashboard/profile" },
   ]
 
-  const upcomingBookings = bookings.filter(
-    (b) => b.status === "SCHEDULED" && new Date(b.date) >= new Date()
-  )
   const completedBookings = bookings.filter((b) => b.status === "COMPLETED")
-  const cancelledBookings = bookings.filter((b) => b.status === "CANCELLED")
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -138,17 +134,7 @@ export default function CustomerDashboard() {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Upcoming Bookings
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold">{upcomingBookings.length}</div>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <Card>
               <CardHeader>
                 <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -170,75 +156,6 @@ export default function CustomerDashboard() {
               </CardContent>
             </Card>
           </div>
-
-          {/* Upcoming Bookings */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>Upcoming Bookings</CardTitle>
-              <CardDescription>
-                Your scheduled services
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {loading ? (
-                <p>Loading...</p>
-              ) : upcomingBookings.length === 0 ? (
-                <p className="text-muted-foreground">No upcoming bookings</p>
-              ) : (
-                <div className="space-y-4">
-                  {upcomingBookings.map((booking) => (
-                    <div
-                      key={booking.id}
-                      className="flex items-center justify-between p-4 border rounded-lg"
-                    >
-                      <div>
-                        <h3 className="font-semibold">{booking.provider?.category}</h3>
-                        <p className="text-sm text-muted-foreground">
-                          {new Date(booking.date).toLocaleDateString()} at {booking.timeSlot}
-                        </p>
-                      </div>
-                      <Badge variant="outline">
-                        <Clock className="w-3 h-3 mr-1" />
-                        {booking.status}
-                      </Badge>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Completed Bookings */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>Recent Completed</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {completedBookings.length === 0 ? (
-                <p className="text-muted-foreground">No completed bookings</p>
-              ) : (
-                <div className="space-y-4">
-                  {completedBookings.slice(0, 5).map((booking) => (
-                    <div
-                      key={booking.id}
-                      className="flex items-center justify-between p-4 border rounded-lg"
-                    >
-                      <div>
-                        <h3 className="font-semibold">{booking.provider?.category}</h3>
-                        <p className="text-sm text-muted-foreground">
-                          {new Date(booking.date).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <Badge variant="success">
-                        <CheckCircle className="w-3 h-3 mr-1" />
-                        Completed
-                      </Badge>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
 
           {/* Favorites */}
           <Card>
@@ -271,4 +188,3 @@ export default function CustomerDashboard() {
     </div>
   )
 }
-

@@ -6,13 +6,16 @@ interface User {
   name?: string;
   email: string;
   role: string;
+  mobile?: string;
+  address?: string;
 }
 
 interface AuthState {
   user: User | null;
   token: string | null;
+  providerId: number | null;        // ← Add this
   isAuthenticated: boolean;
-  login: (user: User, token: string) => void;
+  login: (data: { user: User; token: string; providerId?: number }) => void; // ← Update signature
   logout: () => void;
   updateUser: (user: Partial<User>) => void;
 }
@@ -22,15 +25,29 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       token: null,
+      providerId: null,
       isAuthenticated: false,
-      login: (user, token) => {
+
+      login: ({ user, token, providerId }) => {
         localStorage.setItem('token', token);
-        set({ user, token, isAuthenticated: true });
+        set({
+          user,
+          token,
+          providerId: providerId ?? null,        // ← Save provider ID
+          isAuthenticated: true,
+        });
       },
+
       logout: () => {
         localStorage.removeItem('token');
-        set({ user: null, token: null, isAuthenticated: false });
+        set({
+          user: null,
+          token: null,
+          providerId: null,
+          isAuthenticated: false,
+        });
       },
+
       updateUser: (updatedUser) =>
         set((state) => ({
           user: state.user ? { ...state.user, ...updatedUser } : null,
@@ -42,4 +59,3 @@ export const useAuthStore = create<AuthState>()(
     }
   )
 );
-

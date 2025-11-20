@@ -231,10 +231,10 @@ export default function ProviderDashboard() {
                     Add Service
                   </Link>
                 </Button>
-                <Button variant="outline" className="h-auto py-4">
+                {/* <Button variant="outline" className="h-auto py-4">
                   <Settings className="w-5 h-5 mr-2" />
                   Update Availability
-                </Button>
+                </Button> */}
               </div>
             </CardContent>
           </Card>

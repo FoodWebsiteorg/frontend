@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAuthStore } from "@/store/auth.store";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -50,8 +51,13 @@ export default function LoginPage() {
     }
 
     // Save state + storage
-    login(data.user, data.token);
+    login({
+        user: data.user,
+        token: data.token,
+        providerId: data.provider || null, // Save the provider ID!
+      });
     localStorage.setItem("token", data.token);
+    toast?.success("Logged in successfully!");
 
     // Redirect
     if (data.user.role === "admin") router.push("/admin/dashboard");
