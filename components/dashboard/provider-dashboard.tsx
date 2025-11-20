@@ -19,6 +19,8 @@ import {
   Plus,
   Clock,
   CheckCircle,
+  XCircle,
+  AlertCircle,
 } from "lucide-react"
 import { formatCurrency } from "@/lib/utils"
 
@@ -27,9 +29,10 @@ export default function ProviderDashboard() {
   const router = useRouter()
   const [stats, setStats] = useState({
     totalBookings: 0,
-    upcomingBookings: 0,
-    earnings: 0,
-    profileCompletion: 0,
+    pendingCount: 0,
+    acceptedCount: 0,
+    completedCount: 0,
+    rejectedCount: 0,
   })
   const [bookings, setBookings] = useState<any[]>([])
   const [provider, setProvider] = useState<any>(null)
@@ -41,29 +44,29 @@ export default function ProviderDashboard() {
 
   const fetchData = async () => {
     try {
-      const [bookingsRes, providerRes] = await Promise.all([
-        fetch("/api/bookings"),
-        fetch("/api/provider/profile"),
-      ])
+      // Get token from auth store or localStorage
+      const token = localStorage.getItem("token") || user?.token
 
-      if (bookingsRes.ok) {
-        const bookingsData = await bookingsRes.json()
-        setBookings(bookingsData)
+      // Fetch dashboard stats with token
+      const dashboardRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/bookings/dashboard`,
+        {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+
+      if (dashboardRes.ok) {
+        const dashboardData = await dashboardRes.json()
         setStats({
-          totalBookings: bookingsData.length,
-          upcomingBookings: bookingsData.filter(
-            (b: any) => b.status === "SCHEDULED"
-          ).length,
-          earnings: bookingsData
-            .filter((b: any) => b.status === "COMPLETED")
-            .reduce((sum: number, b: any) => sum + (b.provider?.price || 0), 0),
-          profileCompletion: 75, // Calculate based on filled fields
+          totalBookings: dashboardData.stats.totalBookings,
+          pendingCount: dashboardData.stats.pendingCount,
+          acceptedCount: dashboardData.stats.acceptedCount,
+          completedCount: dashboardData.stats.completedCount,
+          rejectedCount: dashboardData.stats.rejectedCount,
         })
-      }
-
-      if (providerRes.ok) {
-        const providerData = await providerRes.json()
-        setProvider(providerData)
       }
     } catch (error) {
       console.error("Failed to fetch data:", error)
@@ -143,45 +146,62 @@ export default function ProviderDashboard() {
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   Total Bookings
                 </CardTitle>
+                <Calendar className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold">{stats.totalBookings}</div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  All time bookings
+                </p>
               </CardContent>
             </Card>
+            
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Upcoming
+                  Pending
                 </CardTitle>
+                <Clock className="h-4 w-4 text-yellow-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold">{stats.upcomingBookings}</div>
+                <div className="text-3xl font-bold">{stats.pendingCount}</div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Awaiting response
+                </p>
               </CardContent>
             </Card>
+            
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Earnings (This Month)
+                  Accepted
                 </CardTitle>
+                <CheckCircle className="h-4 w-4 text-green-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold">
-                  {formatCurrency(stats.earnings)}
-                </div>
+                <div className="text-3xl font-bold">{stats.acceptedCount}</div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Confirmed bookings
+                </p>
               </CardContent>
             </Card>
+            
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Profile Completion
+                  Completed
                 </CardTitle>
+                <CheckCircle className="h-4 w-4 text-blue-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold">{stats.profileCompletion}%</div>
+                <div className="text-3xl font-bold">{stats.completedCount}</div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Finished services
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -231,10 +251,6 @@ export default function ProviderDashboard() {
                     Add Service
                   </Link>
                 </Button>
-                {/* <Button variant="outline" className="h-auto py-4">
-                  <Settings className="w-5 h-5 mr-2" />
-                  Update Availability
-                </Button> */}
               </div>
             </CardContent>
           </Card>
@@ -282,4 +298,3 @@ export default function ProviderDashboard() {
     </div>
   )
 }
-
