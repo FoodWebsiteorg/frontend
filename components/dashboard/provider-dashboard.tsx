@@ -50,7 +50,7 @@ export default function ProviderDashboard() {
       // Fetch dashboard stats with token
       const dashboardRes = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/bookings/dashboard`,
-        {
+        { 
           headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -117,13 +117,13 @@ export default function ProviderDashboard() {
               <User className="w-5 h-5" />
               <span>Profile</span>
             </Link>
-            <Link
+            {/* <Link
               href="/provider/settings"
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors"
             >
               <Settings className="w-5 h-5" />
               <span>Settings</span>
-            </Link>
+            </Link> */}
             <button
               onClick={handleLogout}
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors w-full text-left text-red-600"
