@@ -39,7 +39,7 @@ export default function HomePage() {
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold">ServiceHub</span>
+            <span className="text-2xl font-bold">Madat_Mitra</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/" className="hover:text-primary">Home</Link>
@@ -223,7 +223,7 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-center mb-8">About Us</h2>
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-muted-foreground mb-4">
-              ServiceHub connects customers with verified service providers.
+              Madat_Mitra connects customers with verified service providers.
             </p>
             <p className="text-muted-foreground">
               Our mission is to make professional services easily accessible to everyone.
@@ -241,7 +241,7 @@ export default function HomePage() {
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                   <Sparkles className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xl font-bold">ServiceHub</span>
+                <span className="text-xl font-bold">Madat_Mitra</span>
               </div>
               <p className="text-gray-400">
                 Your trusted platform for professional services
@@ -270,7 +270,7 @@ export default function HomePage() {
             <div>
               <h3 className="font-semibold mb-4">Contact</h3>
               <ul className="space-y-2 text-gray-400">
-                <li>Email: support@servicehub.com</li>
+                <li>Email: support@madatmitra.com</li>
                 <li>Phone: </li>
                 <li>Address: </li>
               </ul>
@@ -292,7 +292,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 ServiceHub. All rights reserved.</p>
+            <p>&copy; 2025 Madat_Mitra. All rights reserved.</p>
           </div>
         </div>
       </footer>
