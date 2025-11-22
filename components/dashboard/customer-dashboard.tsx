@@ -528,7 +528,7 @@ export default function CustomerDashboard() {
         {/* Sidebar */}
         <aside className="w-64 bg-white border-r min-h-screen p-4">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold">ServiceHub</h2>
+            <h2 className="text-2xl font-bold">Madat_Mitra</h2>
             <p className="text-sm text-muted-foreground">
               Welcome, {user?.name}
             </p>
