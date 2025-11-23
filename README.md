@@ -132,9 +132,9 @@ npm run dev
 
 ## Default Credentials (after seeding)
 
-- **Admin**: admin@servicehub.com / admin123
-- **Customer**: customer@example.com / customer123
-- **Provider**: rajesh@example.com / provider123
+- **Admin**: admin@madatmitra.com / admin123
+- **Customer**: harshada@gmail.com / customer123
+- **Provider**: janvi@gmail.com / provider123
 
 ## Tech Stack
 
