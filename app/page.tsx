@@ -226,13 +226,6 @@ export default function HomePage() {
                   About Us
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover/nav:w-full transition-all duration-300"></span>
                 </Link>
-                <Link 
-                  href="/contact" 
-                  className="relative text-gray-700 hover:text-blue-600 transition-colors duration-300 py-2 group/nav"
-                >
-                  Contact
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover/nav:w-full transition-all duration-300"></span>
-                </Link>
               </div>
 
               {/* Auth Buttons */}
@@ -248,26 +241,6 @@ export default function HomePage() {
                 </Button>
               </div>
             </nav>
-
-            {/* Right Side Icons - Enhanced */}
-            <div className="hidden lg:flex items-center gap-4">
-              {/* Notification Bell */}
-              <Button variant="ghost" size="icon" className="relative rounded-full hover:bg-blue-50 transition-colors duration-300">
-                <Bell className="w-5 h-5 text-gray-600" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
-              </Button>
-
-              {/* Messages */}
-              <Button variant="ghost" size="icon" className="relative rounded-full hover:bg-blue-50 transition-colors duration-300">
-                <MessageCircle className="w-5 h-5 text-gray-600" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-green-500 rounded-full"></span>
-              </Button>
-
-              {/* Admin Button */}
-              <Button variant="outline" asChild className="rounded-full border-blue-200 text-blue-600 hover:bg-blue-50 px-4 transition-all duration-300">
-                <Link href="/admin/login">Admin</Link>
-              </Button>
-            </div>
 
             {/* Mobile Menu Button */}
             <button 
@@ -302,13 +275,6 @@ export default function HomePage() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   About Us
-                </Link>
-                <Link 
-                  href="/contact" 
-                  className="text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-300"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Contact
                 </Link>
                 <div className="pt-4 border-t border-gray-200 space-y-3">
                   <Link 
@@ -353,57 +319,49 @@ export default function HomePage() {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Link key={service.slug} href={`/services/${service.slug}`}>
-                  <div className="group relative bg-white rounded-2xl p-6 cursor-pointer transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-2xl border border-gray-100 overflow-hidden">
-                    {/* Background Gradient Effect */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
-                    
-                    {/* Animated Border */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shine"></div>
-                    
-                    {/* Icon Container */}
-                    <div className="relative mb-6">
-                      <div className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${service.color} p-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110 flex items-center justify-center`}>
-                        <Icon className="w-10 h-10 text-white" />
-                      </div>
-                      {/* Floating dots decoration */}
-                      <div className="absolute -top-2 -right-2 w-4 h-4 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100"></div>
-                      <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200"></div>
+                <div key={service.slug} className="group relative bg-white rounded-2xl p-6 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-2xl border border-gray-100 overflow-hidden">
+                  {/* Background Gradient Effect */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
+                  
+                  {/* Animated Border */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shine"></div>
+                  
+                  {/* Icon Container */}
+                  <div className="relative mb-6">
+                    <div className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${service.color} p-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110 flex items-center justify-center`}>
+                      <Icon className="w-10 h-10 text-white" />
                     </div>
+                    {/* Floating dots decoration */}
+                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100"></div>
+                    <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200"></div>
+                  </div>
 
-                    {/* Content */}
-                    <div className="text-center relative z-10">
-                      <h3 className="font-bold text-xl text-gray-900 mb-2 group-hover:text-gray-800 transition-colors">
-                        {service.name}
-                      </h3>
-                      <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-                        {service.description}
-                      </p>
-                      
-                      {/* Animated CTA */}
-                      <div className="flex items-center justify-center text-primary font-semibold text-sm group-hover:gap-2 transition-all duration-300">
-                        <span>Explore</span>
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
-                      </div>
-                    </div>
-
-                    {/* Background Pattern */}
-                    <div className="absolute bottom-0 right-0 w-24 h-24 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-                      <div className="w-full h-full bg-current rounded-full"></div>
+                  {/* Content */}
+                  <div className="text-center relative z-10">
+                    <h3 className="font-bold text-xl text-gray-900 mb-2 group-hover:text-gray-800 transition-colors">
+                      {service.name}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                      {service.description}
+                    </p>
+                    
+                    {/* Static CTA - Not Clickable */}
+                    <div className="flex items-center justify-center text-primary font-semibold text-sm">
+                      <span>Explore</span>
                     </div>
                   </div>
-                </Link>
+
+                  {/* Background Pattern */}
+                  <div className="absolute bottom-0 right-0 w-24 h-24 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
+                    <div className="w-full h-full bg-current rounded-full"></div>
+                  </div>
+                </div>
               );
             })}
           </div>
 
           {/* View All Button */}
           <div className="text-center mt-12">
-            <Button asChild className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-              <Link href="/services">
-                View All Services
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
@@ -422,7 +380,7 @@ export default function HomePage() {
             {specialOccasions.map((occasion, index) => (
               <div 
                 key={index}
-                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer h-96"
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 h-96"
               >
                 {/* Background Image */}
                 <div 
@@ -466,9 +424,9 @@ export default function HomePage() {
                     ))}
                   </div>
 
-                  {/* CTA Button */}
+                  {/* Static Button - Not Clickable */}
                   <div className="mt-6 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
-                    <Button className="bg-white text-gray-900 hover:bg-gray-100 font-semibold rounded-full px-6">
+                    <Button className="bg-white text-gray-900 hover:bg-gray-100 font-semibold rounded-full px-6 cursor-default">
                       Book Now
                     </Button>
                   </div>
@@ -488,11 +446,6 @@ export default function HomePage() {
             <p className="text-gray-600 mb-6">
               Can't find what you're looking for? We customize services for any occasion!
             </p>
-            <Button asChild variant="outline" className="rounded-full px-8 border-primary text-primary hover:bg-primary hover:text-white">
-              <Link href="/contact">
-                Customize Your Event
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
@@ -596,10 +549,9 @@ export default function HomePage() {
                     <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
                     <p className="text-gray-600 leading-relaxed mb-6">{feature.description}</p>
 
-                    {/* Learn More Link */}
-                    <div className="flex items-center text-primary font-semibold text-sm group-hover:gap-2 transition-all duration-300">
+                    {/* Static Text - Not Clickable */}
+                    <div className="flex items-center text-primary font-semibold text-sm">
                       <span>Learn More</span>
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                     </div>
 
                     {/* Corner Accent */}
@@ -667,13 +619,10 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* CTA */}
+              {/* Static Button - Not Clickable */}
               <div className="flex flex-wrap gap-4">
-                <Button asChild className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full">
-                  <Link href="/about">Learn More About Us</Link>
-                </Button>
-                <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-full">
-                  <Link href="/contact">Contact Us</Link>
+                <Button className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full cursor-default">
+                  Learn More About Us
                 </Button>
               </div>
             </div>
@@ -713,7 +662,7 @@ export default function HomePage() {
                   <div className="space-y-4">
                     <div className="flex items-center gap-3 text-gray-600">
                       <Phone className="w-5 h-5 text-primary" />
-                      <span>+91-9876543210</span>
+                      <span>+91-7720968991</span>
                     </div>
                     <div className="flex items-center gap-3 text-gray-600">
                       <Mail className="w-5 h-5 text-primary" />
@@ -760,7 +709,7 @@ export default function HomePage() {
             <h3 className="font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-gray-400">
               <li>Email: support@madatmitra.com</li>
-              <li>Phone: +91-9876543210</li>
+              <li>Phone: +91-7720968991</li>
               <li>Address: Across India</li>
             </ul>
           </div>
